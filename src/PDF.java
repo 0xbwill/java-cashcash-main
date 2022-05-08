@@ -12,7 +12,7 @@ public class PDF {
         PdfWriter.getInstance(document, new FileOutputStream(new File(FILE_NAME)));
         document.open();
         Paragraph p = new Paragraph();
-        p.add("Text 1");
+        p.add("Courrier automatiques de relance");
         p.setAlignment(Element.ALIGN_CENTER);
         document.add(p);
         Paragraph p2 = new Paragraph();
@@ -24,7 +24,7 @@ public class PDF {
         document.add(new Paragraph("This is my paragraph 3", f));
         // document.add(Image.getInstance("E:\\java_pdf\\chillyfacts.png"));
         document.close();
-        System.out.println("Done");
+        System.out.println("PDF généré avec succès !");
     }catch(
     Exception e)
     {
