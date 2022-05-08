@@ -175,8 +175,8 @@ public class Window implements ActionListener {
             insertionContrat();
         }
         if (e.getSource() == buttonPDF) {
-            System.out.println("Création du contrat en cours..");
-            // generatePDF();
+            System.out.println("Génération du PDF en cours..");
+            PDF.generatePDF();
         }
     }
     // Fin EventListener
