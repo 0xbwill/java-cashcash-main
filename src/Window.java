@@ -181,9 +181,6 @@ public class Window implements ActionListener {
     }
     // Fin EventListener
 
-    // private void generatePDF() {
-    // }
-
     public String showTableData() {
         // Création de la page résultat de la recherche
         JPanel panel = new JPanel();
