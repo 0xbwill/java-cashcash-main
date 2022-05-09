@@ -40,8 +40,9 @@ public class Window implements ActionListener {
     // Déclaration des éléments
     JFrame frame;
     JPanel panel, contratPanel;
-    JTextField textbox, textContrat, t1, t2, t3, t4, t5;
-    JLabel label, labelContrat, titreCreationContrat, l1, l2, l3, l4, l5, sectionContratTitle, sectionPDFTitle;
+    JTextField textbox, textContrat, t1, t2, t3, t4, t5, pdfInput;
+    JLabel label, labelContrat, titreCreationContrat, l1, l2, l3, l4, l5, sectionContratTitle, sectionPDFTitle,
+            pdfInputLabel;
     JButton button, buttonXml, buttonContrat, submitContrat, buttonPDF;
     static JTable table, tableContrat;
 
@@ -92,15 +93,11 @@ public class Window implements ActionListener {
         button = new JButton("Rechercher");
         button.setBounds(220, 60, 170, 20);
         button.addActionListener(this);
+
         // Création buttonContrat
         buttonContrat = new JButton("Rechercher");
         buttonContrat.setBounds(220, 290, 170, 20);
         buttonContrat.addActionListener(this);
-        // Création buttonPDF
-        buttonPDF = new JButton("Générer PDF");
-        buttonPDF.setBounds(30, 500, 170, 20);
-        buttonPDF.addActionListener(this);
-        frame.add(buttonPDF);
 
         JLabel titreCreationContrat = new JLabel("Création d'un contrat");
         titreCreationContrat.setBounds(600, 260, 200, 14);
@@ -138,6 +135,20 @@ public class Window implements ActionListener {
         submitContrat.setBounds(570, 410, 200, 20);
         submitContrat.addActionListener(this);
 
+        pdfInput = new JTextField();
+        pdfInput.setBounds(220, 500, 170, 20);
+
+        pdfInputLabel = new JLabel("Entrez un numéro de client : ");
+        pdfInputLabel.setBounds(30, 500, 250, 20);
+
+        // Création buttonPDF
+        buttonPDF = new JButton("Générer PDF");
+        buttonPDF.setBounds(220, 530, 170, 20);
+        buttonPDF.addActionListener(this);
+        frame.add(buttonPDF);
+
+        frame.add(pdfInput);
+        frame.add(pdfInputLabel);
         frame.add(submitContrat);
         frame.add(buttonContrat);
         frame.add(textContrat);
