@@ -30,6 +30,7 @@ public class PDF {
 
         System.out.println(numeroContratPDF);
 
+        // Informations du client
         String numeroClient = "";
         String nom = "";
         String prenom = "";
@@ -37,12 +38,20 @@ public class PDF {
         String tel = "";
         String adresse = "";
         String siren = "";
-        String numeroAgence = "";
         String codeApe = "";
-        String raisonSociale = "";
+        String numeroAgence = "";
+
+        // Informations du contrat de maintenance
         String dateEcheance = "";
         String dateDeSignature = "";
         String refTypeContrat = "";
+
+        // Informations du matériel vendu et couvert par le contrat
+        String numeroSerie = "";
+        String dateVente = "";
+        String dateInstallation = "";
+        String prixVente = "";
+        String emplacement = "";
 
         String FILE_NAME = "./myPDF.pdf";
         Document document = new Document();
@@ -59,7 +68,7 @@ public class PDF {
 
             int i = 0;
             if (rs.next()) {
-                // Récupérer les données de la base données
+                // Assignation informations du client
                 numeroClient = rs.getString("numeroClient");
                 nom = rs.getString("nom");
                 prenom = rs.getString("prenom");
@@ -69,10 +78,18 @@ public class PDF {
                 siren = rs.getString("siren");
                 numeroAgence = rs.getString("numeroAgence");
                 codeApe = rs.getString("codeApe");
-                raisonSociale = rs.getString("raisonSociale");
+
+                // Assignation informations du contrat de maintenance
                 dateDeSignature = rs.getString("dateDeSignature");
                 dateEcheance = rs.getString("dateEcheance");
                 refTypeContrat = rs.getString("refTypeContrat");
+
+                // Assignation informations du matériel vendu
+                numeroSerie = rs.getString("numeroDeSerie");
+                dateVente = rs.getString("dateDeVente");
+                dateInstallation = rs.getString("dateInstallation");
+                prixVente = rs.getString("prixVente");
+                emplacement = rs.getString("emplacement");
 
                 i++;
             }
@@ -96,72 +113,102 @@ public class PDF {
         p.add("Courrier automatique de relance");
         p.setAlignment(Element.ALIGN_CENTER);
         document.add(p);
+
+        Font bold = new Font(Font.FontFamily.HELVETICA, 20, Font.BOLD);
+
+
         Paragraph cashcash = new Paragraph();
         cashcash.add("Entreprise CashCash");
         cashcash.setAlignment(Element.ALIGN_CENTER);
         document.add(cashcash);
-        document.add(new Paragraph("\n"));
-
-        Paragraph p2 = new Paragraph();
-        p2.add("Numéro Client : " + numeroClient); 
-        document.add(p2);
-
-        Paragraph p3 = new Paragraph();
-        p3.add("Nom & prénom : " + nom + " " + prenom); 
-        document.add(p3);
-
-        Paragraph p4 = new Paragraph();
-        p4.add("Email : " + email); 
-        document.add(p4);
-
-        Paragraph p5 = new Paragraph();
-        p5.add("Téléphone : " + tel); 
-        document.add(p5);
-
-        Paragraph p6 = new Paragraph();
-        p6.add("Adresse : " + adresse); 
-        document.add(p6);
-
-        Paragraph p7 = new Paragraph();
-        p7.add("SIREN : " + siren); 
-        document.add(p7);
-
-        Paragraph p8 = new Paragraph();
-        p8.add("Code APE : " + codeApe); 
-        document.add(p8);
-
-        Paragraph p9 = new Paragraph();
-        p9.add("Numéro agence : " + numeroAgence); 
-        document.add(p9);
 
         document.add(new Paragraph("\n"));
-
-        Paragraph p10 = new Paragraph();
-        p10.add("Numéro de contrat : " + numeroContratPDF); 
-        document.add(p10);
-
-        Paragraph p11 = new Paragraph();
-        p11.add("Date de signature du contrat : " + dateDeSignature); 
-        document.add(p11);
-
-        Paragraph p12 = new Paragraph();
-        p12.add("Date d'échéance du contrat : " + dateEcheance); 
-        document.add(p12);
-
-        Paragraph p13 = new Paragraph();
-        p13.add("Référence du contrat : " + refTypeContrat); 
-        document.add(p13);
-
         document.add(new Paragraph("\n"));
 
         Paragraph p14 = new Paragraph();
         p14.add("Madame, Monsieur " + nom + ",");
         document.add(p14);
+
         Paragraph p15 = new Paragraph();
-        p15.add("Nous vous informons que votre contrat de maintenance numéro " + numeroContratPDF  + " arrive très prochainement à expiration.");
+        p15.add("Nous vous informons que votre contrat de maintenance numéro " + numeroContratPDF
+                + " arrive très prochainement à expiration.");
         document.add(p15);
 
-        // document.add(Image.getInstance("E:\\java_pdf\\chillyfacts.png"));
+        document.add(new Paragraph("\n"));
+        document.add(new Paragraph("\n"));
+
+        Paragraph p2 = new Paragraph();
+        p2.add("Numéro Client : " + numeroClient);
+        document.add(p2);
+
+        Paragraph p3 = new Paragraph();
+        p3.add("Nom & prénom : " + nom + " " + prenom);
+        document.add(p3);
+
+        Paragraph p4 = new Paragraph();
+        p4.add("Email : " + email);
+        document.add(p4);
+
+        Paragraph p5 = new Paragraph();
+        p5.add("Téléphone : " + tel);
+        document.add(p5);
+
+        Paragraph p6 = new Paragraph();
+        p6.add("Adresse : " + adresse);
+        document.add(p6);
+
+        Paragraph p7 = new Paragraph();
+        p7.add("SIREN : " + siren);
+        document.add(p7);
+
+        Paragraph p8 = new Paragraph();
+        p8.add("Code APE : " + codeApe);
+        document.add(p8);
+
+        Paragraph p9 = new Paragraph();
+        p9.add("Numéro agence : " + numeroAgence);
+        document.add(p9);
+
+        document.add(new Paragraph("\n"));
+
+        Paragraph p10 = new Paragraph();
+        p10.add("Numéro de contrat : " + numeroContratPDF);
+        document.add(p10);
+
+        Paragraph p11 = new Paragraph();
+        p11.add("Date de signature du contrat : " + dateDeSignature);
+        document.add(p11);
+
+        Paragraph p12 = new Paragraph();
+        p12.add("Date d'échéance du contrat : " + dateEcheance);
+        document.add(p12);
+
+        Paragraph p13 = new Paragraph();
+        p13.add("Référence du contrat : " + refTypeContrat);
+        document.add(p13);
+
+        document.add(new Paragraph("\n"));
+
+        Paragraph p20 = new Paragraph();
+        p20.add("Numéro de série : " + numeroSerie);
+        document.add(p20);
+
+        Paragraph p21 = new Paragraph();
+        p21.add("Date de vente : " + dateVente);
+        document.add(p21);
+
+        Paragraph p22 = new Paragraph();
+        p22.add("Date installation : " + dateInstallation);
+        document.add(p22);
+
+        Paragraph p23 = new Paragraph();
+        p23.add("Prix de vente : " + prixVente);
+        document.add(p23);
+
+        Paragraph p24 = new Paragraph();
+        p24.add("Emplacement : " + emplacement);
+        document.add(p24);
+
         document.close();
         System.out.println("PDF généré avec succès !");
 
