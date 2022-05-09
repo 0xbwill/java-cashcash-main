@@ -317,7 +317,6 @@ public class Window implements ActionListener {
         panel.add(buttonXml);
         panel.add(table);
         panel.setBounds(0, 100, 900, 70);
-        panel.setBackground(Color.pink);
         frame.setVisible(true);
 
         return textvalue;
@@ -506,7 +505,6 @@ public class Window implements ActionListener {
         // Appel des éléments
         contratPanel.add(tableContrat);
         contratPanel.setBounds(0, 320, 500, 40);
-        contratPanel.setBackground(Color.green);
         frame.setVisible(true);
 
         return textvalueContrat;
