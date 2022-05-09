@@ -3,6 +3,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -30,6 +31,8 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+
+import com.itextpdf.text.DocumentException;
 
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
@@ -138,7 +141,7 @@ public class Window implements ActionListener {
         pdfInput = new JTextField();
         pdfInput.setBounds(220, 500, 170, 20);
 
-        pdfInputLabel = new JLabel("Entrez un numéro de client : ");
+        pdfInputLabel = new JLabel("Entrez un numéro de contrat : ");
         pdfInputLabel.setBounds(30, 500, 250, 20);
 
         // Création buttonPDF
@@ -187,7 +190,16 @@ public class Window implements ActionListener {
         }
         if (e.getSource() == buttonPDF) {
             System.out.println("Génération du PDF en cours..");
-            PDF.generatePDF();
+            String numeroContratPDF = pdfInput.getText();
+            try {
+                PDF.generatePDF(numeroContratPDF);
+            } catch (FileNotFoundException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            } catch (DocumentException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
         }
     }
     // Fin EventListener
