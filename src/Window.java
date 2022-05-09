@@ -43,8 +43,9 @@ public class Window implements ActionListener {
     // Déclaration des éléments
     JFrame frame;
     JPanel panel, contratPanel;
-    JTextField textbox, textContrat, t1, t2, t3, t4, t5, pdfInput;
-    JLabel label, labelContrat, titreCreationContrat, l1, l2, l3, l4, l5, sectionContratTitle, sectionPDFTitle,
+    JTextField textbox, textContrat, t1, t2, t3, t4, t5, t7, t8, t9, t11, pdfInput;
+    JLabel label, labelContrat, titreCreationContrat, l1, l2, l3, l4, l5, l7, l8, l9, sectionContratTitle,
+            sectionPDFTitle,
             pdfInputLabel;
     JButton button, buttonXml, buttonContrat, submitContrat, buttonPDF;
     static JTable table, tableContrat;
@@ -103,10 +104,11 @@ public class Window implements ActionListener {
         buttonContrat.addActionListener(this);
 
         JLabel titreCreationContrat = new JLabel("Création d'un contrat");
-        titreCreationContrat.setBounds(600, 260, 200, 14);
+        titreCreationContrat.setBounds(770, 240, 200, 14);
         titreCreationContrat.setFont(new Font("Arial", Font.BOLD, 15));
         frame.add(titreCreationContrat);
 
+        // Colonne gauche
         JLabel l1 = new JLabel("Numero de contrat");
         l1.setBounds(550, 290, 130, 14);
         frame.add(l1);
@@ -115,10 +117,24 @@ public class Window implements ActionListener {
         l4.setBounds(550, 330, 130, 14);
         frame.add(l4);
 
-        JLabel l5 = new JLabel("Référence Contrat");
+        JLabel l5 = new JLabel("Référence contrat");
         l5.setBounds(550, 370, 130, 14);
         frame.add(l5);
 
+        // Colonne droite
+        JLabel l7 = new JLabel("Numéro de série");
+        l7.setBounds(900, 290, 130, 14);
+        frame.add(l7);
+
+        JLabel l8 = new JLabel("Prix de vente");
+        l8.setBounds(900, 330, 130, 14);
+        frame.add(l8);
+
+        JLabel l9 = new JLabel("Emplacement");
+        l9.setBounds(900, 370, 130, 14);
+        frame.add(l9);
+
+        // Input colone gauche
         t1 = new JTextField();
         t1.setBounds(700, 290, 96, 20);
         frame.add(t1);
@@ -134,8 +150,24 @@ public class Window implements ActionListener {
         frame.add(t5);
         t5.setColumns(10);
 
+        // Input colone droite
+        t7 = new JTextField();
+        t7.setBounds(1050, 290, 96, 20);
+        frame.add(t7);
+        t7.setColumns(10);
+
+        t8 = new JTextField();
+        t8.setBounds(1050, 330, 96, 20);
+        frame.add(t8);
+        t8.setColumns(10);
+
+        t9 = new JTextField();
+        t9.setBounds(1050, 370, 96, 20);
+        frame.add(t9);
+        t9.setColumns(10);
+
         submitContrat = new JButton("Générer contrat");
-        submitContrat.setBounds(570, 410, 200, 20);
+        submitContrat.setBounds(740, 430, 200, 20);
         submitContrat.addActionListener(this);
 
         pdfInput = new JTextField();
@@ -160,7 +192,7 @@ public class Window implements ActionListener {
         frame.add(textbox);
         frame.add(label);
         frame.setVisible(true);
-        frame.setSize(900, 850);
+        frame.setSize(1200, 850);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setUndecorated(true);
 
@@ -486,12 +518,16 @@ public class Window implements ActionListener {
         String numeroDeContrat = t1.getText();
         String numeroClient = t4.getText();
         String refTypeContrat = t5.getText();
+        String numeroSerie = t7.getText();
+        String prixVente = t8.getText();
+        String emplacement = t9.getText();
 
         // Formatage de la date du jour pour insérer dans la BDD
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         LocalDate dateDeSignature = LocalDate.now();
         LocalDate dateEcheance = LocalDate.now().plusYears(1);
+        LocalDate dateInstallation = LocalDate.now().plusDays(3);
 
         try {
             Class.forName(driverName);
@@ -501,6 +537,14 @@ public class Window implements ActionListener {
                     + dateEcheance.format(format).toString() + "'," + numeroClient + "," + refTypeContrat + ");";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.executeUpdate(sql);
+
+            String insertMateriel = "INSERT INTO materiel (numeroDeSerie,dateDeVente,dateInstallation,prixVente,emplacement,refInterne,numeroClient,numeroContrat) VALUES ("
+                    + numeroSerie + ",'" + dateDeSignature.format(format).toString() + "','" + dateInstallation.format(format).toString() + "'," + prixVente + ",'" + emplacement + "'," + refTypeContrat + "," + numeroClient
+                    + "," + numeroDeContrat + ");";
+
+            PreparedStatement materielPs = con.prepareStatement(insertMateriel);
+            materielPs.executeUpdate(insertMateriel);
+
             System.out.println("Création du contrat réussie !");
         } catch (Exception e) {
             System.out.println(e);
