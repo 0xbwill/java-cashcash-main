@@ -61,8 +61,7 @@ public class PDF {
             // Connexion BDD
             Class.forName(driverName);
             Connection con = DriverManager.getConnection(url, userName, password);
-            String sql = "SELECT * FROM contrat_de_maintenance INNER JOIN clients ON contrat_de_maintenance.numeroClient = clients.numeroClient WHERE numeroDeContrat ="
-                    + numeroContratPDF;
+            String sql = "SELECT * FROM contrat_de_maintenance INNER JOIN clients ON contrat_de_maintenance.numeroClient = clients.numeroClient INNER JOIN materiel ON contrat_de_maintenance.numeroDeContrat = materiel.numeroContrat WHERE numeroDeContrat =" + numeroContratPDF;
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
@@ -114,8 +113,9 @@ public class PDF {
         p.setAlignment(Element.ALIGN_CENTER);
         document.add(p);
 
-        Font bold = new Font(Font.FontFamily.HELVETICA, 20, Font.BOLD);
-
+        Font bold = new Font();
+        bold.setStyle(Font.BOLD);
+        bold.setSize(15);
 
         Paragraph cashcash = new Paragraph();
         cashcash.add("Entreprise CashCash");
@@ -136,6 +136,8 @@ public class PDF {
 
         document.add(new Paragraph("\n"));
         document.add(new Paragraph("\n"));
+
+        document.add(new Paragraph("Informations client", bold));
 
         Paragraph p2 = new Paragraph();
         p2.add("Numéro Client : " + numeroClient);
@@ -171,6 +173,8 @@ public class PDF {
 
         document.add(new Paragraph("\n"));
 
+        document.add(new Paragraph("Informations du contrat", bold));
+
         Paragraph p10 = new Paragraph();
         p10.add("Numéro de contrat : " + numeroContratPDF);
         document.add(p10);
@@ -189,6 +193,8 @@ public class PDF {
 
         document.add(new Paragraph("\n"));
 
+        document.add(new Paragraph("Informations du matériel", bold));
+
         Paragraph p20 = new Paragraph();
         p20.add("Numéro de série : " + numeroSerie);
         document.add(p20);
@@ -202,7 +208,7 @@ public class PDF {
         document.add(p22);
 
         Paragraph p23 = new Paragraph();
-        p23.add("Prix de vente : " + prixVente);
+        p23.add("Prix de vente : " + prixVente + "€");
         document.add(p23);
 
         Paragraph p24 = new Paragraph();
