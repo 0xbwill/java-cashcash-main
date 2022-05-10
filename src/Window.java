@@ -59,7 +59,7 @@ public class Window implements ActionListener {
     // Création tableau Client
     String[] columnNames = { "numeroClient", "nom", "prenom", "email", "tel", "adresse", "siren", "numeroAgence",
             "codeApe", "raisonSociale", "dureeDeplacement", "distanceKm" };
-            
+
     // Création tableau Contrat
     String[] columnContrat = { "numeroDeContrat", "dateDeSignature", "dateEcheance", "numeroClient", "refTypeContrat" };
 
