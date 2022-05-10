@@ -192,7 +192,7 @@ public class Window implements ActionListener {
         frame.add(textbox);
         frame.add(label);
         frame.setVisible(true);
-        frame.setSize(1200, 850);
+        frame.setSize(1200, 640);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setUndecorated(true);
 
