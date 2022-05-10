@@ -55,18 +55,15 @@ public class Window implements ActionListener {
     String url = "jdbc:mysql://localhost:3306/laravel-ap";
     String userName = "laravel";
     String password = "r-UgAizH[T.y@qKS";
-    // Fin connexion BDD
 
     // Création tableau Client
     String[] columnNames = { "numeroClient", "nom", "prenom", "email", "tel", "adresse", "siren", "numeroAgence",
             "codeApe", "raisonSociale", "dureeDeplacement", "distanceKm" };
-    // Fin tableau
-
+            
     // Création tableau Contrat
     String[] columnContrat = { "numeroDeContrat", "dateDeSignature", "dateEcheance", "numeroClient", "refTypeContrat" };
-    // Fin tableau
 
-    // Création de la fenetre
+    // Méthode chargé de la création de la fenêtre | createUI()
     public void createUI() {
         frame = new JFrame("CashCash App");
         frame.setLayout(null);
@@ -197,7 +194,7 @@ public class Window implements ActionListener {
         frame.setUndecorated(true);
 
     }
-    // Fin création de la fenetre
+    // Fin méthode createUI()
 
     // Début EventListener
     public void actionPerformed(ActionEvent e) {
@@ -236,6 +233,7 @@ public class Window implements ActionListener {
     }
     // Fin EventListener
 
+    // Méthode chargé de l'affichage des données d'un client | showTableData()
     public String showTableData() {
         // Création de la page résultat de la recherche
         JPanel panel = new JPanel();
@@ -321,8 +319,9 @@ public class Window implements ActionListener {
 
         return textvalue;
     }
+    // Fin méthode showTableData()
 
-    // Méthode createXML, chargée de la création du fichier XML
+    // Méthode chargé de la création du fichier XML | createXML()
     public void createXML() {
         String nom = "";
         String prenom = "";
@@ -440,10 +439,9 @@ public class Window implements ActionListener {
             e.printStackTrace();
         }
     }
-    // Fin Méthode createXML
+    // Fin méthode createXML()
 
-    // Fonction pour afficher l'ensemble des contrats de maintenance
-    // GREEN BACKGROUND
+    // Méthode pour afficher un nouveau contrat | afficherContrat()
     public String afficherContrat() {
         JPanel contratPanel = new JPanel();
         frame.add(contratPanel);
@@ -510,7 +508,9 @@ public class Window implements ActionListener {
         return textvalueContrat;
 
     }
+    // Fin méthode afficherContrat()
 
+    // Méthode pour insérer un nouveau contrat | insertionContrat()
     public String insertionContrat() {
 
         String numeroDeContrat = t1.getText();
@@ -537,7 +537,9 @@ public class Window implements ActionListener {
             ps.executeUpdate(sql);
 
             String insertMateriel = "INSERT INTO materiel (numeroDeSerie,dateDeVente,dateInstallation,prixVente,emplacement,refInterne,numeroClient,numeroContrat) VALUES ("
-                    + numeroSerie + ",'" + dateDeSignature.format(format).toString() + "','" + dateInstallation.format(format).toString() + "'," + prixVente + ",'" + emplacement + "'," + refTypeContrat + "," + numeroClient
+                    + numeroSerie + ",'" + dateDeSignature.format(format).toString() + "','"
+                    + dateInstallation.format(format).toString() + "'," + prixVente + ",'" + emplacement + "',"
+                    + refTypeContrat + "," + numeroClient
                     + "," + numeroDeContrat + ");";
 
             PreparedStatement materielPs = con.prepareStatement(insertMateriel);
@@ -549,5 +551,6 @@ public class Window implements ActionListener {
         }
         return driverName;
     }
+    // Fin méthode insertionContrat()
 
 }
